@@ -102,4 +102,5 @@ func sendData(data []byte, p *kafka.Producer) () {
 		TopicPartition:kafka.TopicPartition{Topic:&topic, Partition: kafka.PartitionAny},
 		Value: data,
 	}, nil)
+	p.Flush(1000)
 }

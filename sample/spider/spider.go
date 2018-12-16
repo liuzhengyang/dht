@@ -27,7 +27,7 @@ func main() {
 		http.ListenAndServe(":6060", nil)
 	}()
 
-	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "127.0.0.1:9092"})
+	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "kafka-server:9092"})
 	if err != nil {
 		panic(err.Error())
 	}

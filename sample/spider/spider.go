@@ -8,6 +8,7 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"os"
 )
 
 type file struct {
@@ -31,6 +32,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
+	address := os.Args[1]
 
 	go func() {
 		for e := range p.Events() {
@@ -88,6 +90,8 @@ func main() {
 	go w.Run()
 
 	config := dht.NewCrawlConfig()
+	config.MaxNodes = 10000
+	config.Address = address
 	config.OnAnnouncePeer = func(infoHash, ip string, port int) {
 		w.Request([]byte(infoHash), ip, port)
 	}
